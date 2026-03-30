@@ -1,0 +1,27 @@
+/*шрифт текста  */
+.post-text {
+    font-size: 1.15rem;
+    color: #333;
+    text-align: justify; 
+}
+
+/* Стили для блока комментариев */
+.comment {
+    border-radius: 8px; 
+    transition: 0.3s;   
+}
+
+.comment:hover {
+    background-color: #f0f8ff !important; /* подсветка */
+}
+
+/* Стили для ответов на комментарии */
+.reply {
+    background-color: #ffffff;
+    border-left: 2px solid #dee2e6;
+}
+
+/* Оформление подвала */
+footer {
+    border-top: 1px solid #444;
+}
