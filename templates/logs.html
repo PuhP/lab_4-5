@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Журнал посещений</h2>
+    
+    <div class="mb-3">
+        <a href="{{ url_for('logs.report_pages') }}" class="btn btn-outline-info">Отчет по страницам</a>
+        <a href="{{ url_for('logs.report_users') }}" class="btn btn-outline-info">Отчет по пользователям</a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Пользователь</th>
+                <th>Страница</th>
+                <th>Дата</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in pagination.items %}
+            <tr>
+                <td>{{ (pagination.page - 1) * pagination.per_page + loop.index }}</td>
+                <td>
+                    {% if log.user %}
+                        {{ log.user.last_name or '' }} {{ log.user.first_name }}
+                    {% else %}
+                        Неаутентифицированный пользователь
+                    {% endif %}
+                </td>
+                <td>{{ log.path }}</td>
+                <td>{{ log.created_at.strftime('%d.%m.%Y %H:%M:%S') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <nav>
+        <ul class="pagination">
+            {% for page in pagination.iter_pages() %}
+                <li class="page-item {% if page == pagination.page %}active{% endif %}">
+                    {% if page %}
+                        <a class="page-link" href="{{ url_for('logs.view_logs', page=page) }}">{{ page }}</a>
+                    {% else %}
+                        <span class="page-link">...</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}
