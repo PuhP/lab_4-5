@@ -1,27 +1,36 @@
-/*шрифт текста  */
-.post-text {
-    font-size: 1.15rem;
-    color: #333;
-    text-align: justify; 
+.logo {
+    max-width: 175px;
 }
 
-/* Стили для блока комментариев */
-.comment {
-    border-radius: 8px; 
-    transition: 0.3s;   
+.profile {
+    max-width: 45px;
 }
 
-.comment:hover {
-    background-color: #f0f8ff !important; /* подсветка */
+.background-preview {
+    border: 3px dashed grey;
+    flex-grow: 1;
 }
 
-/* Стили для ответов на комментарии */
-.reply {
-    background-color: #ffffff;
-    border-left: 2px solid #dee2e6;
+.title-area {
+    background-color: black;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    font-size: 1.5rem;
+    min-height: calc(75vh);
 }
 
-/* Оформление подвала */
-footer {
-    border-top: 1px solid #444;
+.courses-list .row:hover {
+    cursor: pointer;
+    border: 1px solid black !important;
+}
+
+.course-logo {
+    min-width: 170px;
+    width: 100%;
+    height: 170px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }

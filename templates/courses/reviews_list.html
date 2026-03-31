@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% from 'pagination.html' import render_pagination %}
+
+{% block content %}
+<div class="container mt-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('courses.index') }}">Каталог</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('courses.show', course_id=course.id) }}">{{ course.name }}</a></li>
+            <li class="breadcrumb-item active">Все отзывы</li>
+        </ol>
+    </nav>
+
+    <h1 class="mb-4 text-center">Отзывы о курсе «{{ course.name }}»</h1>
+
+    <div class="mb-4 d-flex justify-content-center">
+        <div class="btn-group" role="group">
+            <a href="{{ url_for('courses.reviews_list', course_id=course.id, sort='new') }}" 
+               class="btn btn-outline-dark {% if sort_by == 'new' %}active{% endif %}">Сначала новые</a>
+            <a href="{{ url_for('courses.reviews_list', course_id=course.id, sort='positive') }}" 
+               class="btn btn-outline-dark {% if sort_by == 'positive' %}active{% endif %}">Сначала положительные</a>
+            <a href="{{ url_for('courses.reviews_list', course_id=course.id, sort='negative') }}" 
+               class="btn btn-outline-dark {% if sort_by == 'negative' %}active{% endif %}">Сначала отрицательные</a>
+        </div>
+    </div>
+
+    <div class="reviews-list">
+        {% for review in pagination.items %}
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between border-bottom pb-2 mb-2">
+                        <h6 class="card-title mb-0"><strong>{{ review.user.full_name }}</strong></h6>
+                        <span class="text-muted small">{{ review.created_at.strftime('%d.%m.%Y %H:%M') }}</span>
+                    </div>
+                    <p class="card-text text-warning font-weight-bold">★ {{ review.rating }}</p>
+                    <p class="card-text">{{ review.text }}</p>
+                </div>
+            </div>
+        {% else %}
+            <p class="text-center">Отзывов пока нет.</p>
+        {% endfor %}
+    </div>
+
+    <div class="mt-4">
+        {{ render_pagination(pagination, 'courses.reviews_list', {'course_id': course.id, 'sort': sort_by}) }}
+    </div>
+</div>
+{% endblock %}
